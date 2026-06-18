@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import AuroraBg from "@/components/Aurorabg";
-import StarField from "@/components/Starfield";
 import "./globals.css";
+
+const StarField = dynamic(() => import("@/components/Starfield"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "Nexora — Academic Resource Hub",
