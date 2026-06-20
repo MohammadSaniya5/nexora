@@ -1,7 +1,7 @@
-import { kv } from "@vercel/kv";
 import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
+import { sql } from "@/lib/db";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -36,10 +36,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // ----------------------------
-    // File validation
-    // ----------------------------
-
     const extension =
       file.name.split(".").pop()?.toLowerCase() || "";
 
@@ -55,8 +51,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Optional: 20MB limit
-
     const MAX_SIZE = 20 * 1024 * 1024;
 
     if (file.size > MAX_SIZE) {
@@ -70,9 +64,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ----------------------------
     // Upload to Blob
-    // ----------------------------
 
     const blob = await put(
       `nexora/${uuid()}-${file.name}`,
@@ -82,27 +74,44 @@ export async function POST(req: Request) {
       }
     );
 
-    // ----------------------------
-    // Save metadata
-    // ----------------------------
-
     const id = uuid();
 
-    const material = {
-      id,
-      title,
-      subject,
-      category,
-      description,
-      url: blob.url,
-      uploadedAt: new Date().toISOString(),
-    };
+    const uploadedAt = new Date().toISOString();
 
-    await kv.set(`material:${id}`, material);
+    // Save into Neon
+
+    await sql`
+      INSERT INTO materials (
+        id,
+        title,
+        subject,
+        category,
+        description,
+        url,
+        uploaded_at
+      )
+      VALUES (
+        ${id},
+        ${title},
+        ${subject},
+        ${category},
+        ${description},
+        ${blob.url},
+        ${uploadedAt}
+      );
+    `;
 
     return NextResponse.json({
       success: true,
-      material,
+      material: {
+        id,
+        title,
+        subject,
+        category,
+        description,
+        url: blob.url,
+        uploadedAt,
+      },
     });
   } catch (error) {
     console.error("Upload API Error:", error);

@@ -1,6 +1,6 @@
-import { kv } from "@vercel/kv";
 import { NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
+import { sql } from "@/lib/db";
 
 type Message = {
   id: string;
@@ -12,30 +12,28 @@ type Message = {
   createdAt: string;
 };
 
-const KV_KEY = "messages";
-
 export async function GET() {
   try {
-    const messages =
-      (await kv.get<Message[]>(KV_KEY)) ?? [];
-
-    messages.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() -
-        new Date(a.createdAt).getTime()
-    );
+    const messages = await sql`
+      SELECT
+        id,
+        name,
+        roll,
+        email,
+        subject,
+        message,
+        created_at AS "createdAt"
+      FROM messages
+      ORDER BY created_at DESC;
+    `;
 
     return NextResponse.json(messages);
   } catch (error) {
     console.error("GET Messages Error:", error);
 
     return NextResponse.json(
-      {
-        error: "Failed to fetch messages",
-      },
-      {
-        status: 500,
-      }
+      { error: "Failed to fetch messages" },
+      { status: 500 }
     );
   }
 }
@@ -52,12 +50,8 @@ export async function POST(req: Request) {
 
     if (!name || !message) {
       return NextResponse.json(
-        {
-          error: "Name and message are required",
-        },
-        {
-          status: 400,
-        }
+        { error: "Name and message are required" },
+        { status: 400 }
       );
     }
 
@@ -66,12 +60,8 @@ export async function POST(req: Request) {
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     ) {
       return NextResponse.json(
-        {
-          error: "Invalid email address",
-        },
-        {
-          status: 400,
-        }
+        { error: "Invalid email address" },
+        { status: 400 }
       );
     }
 
@@ -85,12 +75,26 @@ export async function POST(req: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    const messages =
-      (await kv.get<Message[]>(KV_KEY)) ?? [];
-
-    messages.unshift(newMessage);
-
-    await kv.set(KV_KEY, messages);
+    await sql`
+      INSERT INTO messages (
+        id,
+        name,
+        roll,
+        email,
+        subject,
+        message,
+        created_at
+      )
+      VALUES (
+        ${newMessage.id},
+        ${newMessage.name},
+        ${newMessage.roll},
+        ${newMessage.email},
+        ${newMessage.subject},
+        ${newMessage.message},
+        ${newMessage.createdAt}
+      );
+    `;
 
     return NextResponse.json({
       success: true,
@@ -100,12 +104,8 @@ export async function POST(req: Request) {
     console.error("POST Message Error:", error);
 
     return NextResponse.json(
-      {
-        error: "Failed to save message",
-      },
-      {
-        status: 500,
-      }
+      { error: "Failed to save message" },
+      { status: 500 }
     );
   }
 }

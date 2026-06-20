@@ -1,28 +1,20 @@
-import { kv } from "@vercel/kv";
 import { NextResponse } from "next/server";
-
-type Material = {
-  id: string;
-  title: string;
-  subject: string;
-  category: string;
-  url: string;
-  description?: string;
-  uploadedAt: string;
-};
-
-const KV_KEY = "materials";
+import { sql } from "@/lib/db";
 
 export async function GET() {
   try {
-    const materials =
-      (await kv.get<Material[]>(KV_KEY)) ?? [];
-
-    materials.sort(
-      (a, b) =>
-        new Date(b.uploadedAt).getTime() -
-        new Date(a.uploadedAt).getTime()
-    );
+    const materials = await sql`
+      SELECT
+        id,
+        title,
+        subject,
+        category,
+        url,
+        description,
+        uploaded_at AS "uploadedAt"
+      FROM materials
+      ORDER BY uploaded_at DESC;
+    `;
 
     return NextResponse.json(materials);
   } catch (error) {
@@ -56,14 +48,10 @@ export async function DELETE(req: Request) {
       );
     }
 
-    const materials =
-      (await kv.get<Material[]>(KV_KEY)) ?? [];
-
-    const updatedMaterials = materials.filter(
-      (material) => material.id !== id
-    );
-
-    await kv.set(KV_KEY, updatedMaterials);
+    await sql`
+      DELETE FROM materials
+      WHERE id = ${id};
+    `;
 
     return NextResponse.json({
       success: true,

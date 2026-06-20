@@ -1,23 +1,17 @@
-import { kv } from "@vercel/kv";
 import { NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
-
-type Subject = {
-  id: string;
-  name: string;
-  createdAt: string;
-};
-
-const KV_KEY = "subjects";
+import { sql } from "@/lib/db";
 
 export async function GET() {
   try {
-    const subjects =
-      (await kv.get<Subject[]>(KV_KEY)) ?? [];
-
-    subjects.sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
+    const subjects = await sql`
+      SELECT
+        id,
+        name,
+        created_at AS "createdAt"
+      FROM subjects
+      ORDER BY name ASC;
+    `;
 
     return NextResponse.json(subjects);
   } catch (error) {
@@ -49,17 +43,13 @@ export async function POST(req: Request) {
       );
     }
 
-    const subjects =
-      (await kv.get<Subject[]>(KV_KEY)) ?? [];
+    const existing = await sql`
+      SELECT id
+      FROM subjects
+      WHERE LOWER(name) = LOWER(${name.trim()});
+    `;
 
-    // Prevent duplicate subjects
-    const exists = subjects.some(
-      (subject) =>
-        subject.name.toLowerCase() ===
-        name.trim().toLowerCase()
-    );
-
-    if (exists) {
+    if (existing.length > 0) {
       return NextResponse.json(
         {
           error: "Subject already exists",
@@ -70,19 +60,24 @@ export async function POST(req: Request) {
       );
     }
 
-    const newSubject: Subject = {
+    const newSubject = {
       id: uuid(),
       name: name.trim(),
       createdAt: new Date().toISOString(),
     };
 
-    subjects.push(newSubject);
-
-    subjects.sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
-
-    await kv.set(KV_KEY, subjects);
+    await sql`
+      INSERT INTO subjects (
+        id,
+        name,
+        created_at
+      )
+      VALUES (
+        ${newSubject.id},
+        ${newSubject.name},
+        ${newSubject.createdAt}
+      );
+    `;
 
     return NextResponse.json({
       success: true,
@@ -119,14 +114,10 @@ export async function DELETE(req: Request) {
       );
     }
 
-    const subjects =
-      (await kv.get<Subject[]>(KV_KEY)) ?? [];
-
-    const updatedSubjects = subjects.filter(
-      (subject) => subject.id !== id
-    );
-
-    await kv.set(KV_KEY, updatedSubjects);
+    await sql`
+      DELETE FROM subjects
+      WHERE id = ${id};
+    `;
 
     return NextResponse.json({
       success: true,

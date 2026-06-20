@@ -27,49 +27,60 @@ const items = [
     title: "📖 Publications",
     description:
       "View all journal publications, conference papers, and academic contributions authored by Mr. V S S P L N Balaji Lanka.",
-    link: "#",
+    link: "https://www.researchgate.net/scientific-contributions/V-S-S-P-L-N-Balaji-Lanka-2280687410",
   },
   {
     id: "scholar",
     title: "🎓 Google Scholar",
     description:
       "Explore citations, h-index, i10-index, and research metrics on Google Scholar.",
-    link: "#",
+    link: "https://scholar.google.com/citations?user=a02aCJwAAAAJ&hl=en",
   },
   {
     id: "research",
     title: "🧪 Research Projects",
     description:
       "Discover ongoing and completed research projects, innovations, and collaborations.",
-    link: "#",
+    link: "https://ijisae.org/index.php/IJISAE/article/view/5713",
   },
   {
     id: "papers",
     title: "📄 Technical Papers",
     description:
       "Browse technical papers and conference presentations published over the years.",
-    link: "#",
+    link: "https://icdlair2023.iaasse.org/Session3.pdf",
   },
   {
     id: "awards",
     title: "🏆 Achievements & Awards",
     description:
       "Academic achievements, recognitions, certifications, and professional milestones.",
-    link: "#",
+    link: "https://pencilbitz.com/assets/img/event-certificate/vignan_Certificates.pdf",
   },
-  {
-    id: "linkedin",
-    title: "🔗 LinkedIn",
-    description:
-      "Professional profile including experience, education, and networking.",
-    link: "#",
-  },
+   
   {
     id: "researchgate",
     title: "🌐 ResearchGate",
     description:
       "ResearchGate profile containing publications, citations, and collaborations.",
-    link: "#",
+    link: "https://www.researchgate.net/scientific-contributions/Mr-Vsspln-Balaji-Lanka-2351395103",
+  },
+];
+
+// Extra publication links that don't fit into a single card above
+const morePublications = [
+  {
+    title: "Secure Pay: Blockchain Based UPI Payment System",
+    link: "https://www.ijraset.com/research-paper/secure-pay-blockchain-based-upi-payment-system",
+  },
+  {
+    title:
+      "Fundamentals of AI & Machine Learning: Specific Examples & Application in Agriculture",
+    link: "https://www.taylorfrancis.com/chapters/edit/10.1201/9781003485179-10/fundamentals-ai-machine-learning-specific-examples-application-agriculture-manoj-kumar-mahto-laxmikanth-balaji-lanka",
+  },
+  {
+    title: "Enhanced Security and Robustness of Data Using Steganography",
+    link: "https://www.springerprofessional.de/en/enhanced-security-and-robustness-of-data-using-steganography/50591390",
   },
 ];
 
@@ -447,6 +458,65 @@ export default function FacultyPage() {
           </motion.a>
         ))}
       </div>
+
+      {/* More Publications (links not tied to a single card above) */}
+
+      <motion.div
+        className="glass"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        style={{
+          padding: 32,
+          marginTop: 32,
+        }}
+      >
+        <h3
+          style={{
+            color: "#EC4899",
+            marginBottom: 24,
+            fontSize: 24,
+          }}
+        >
+          More Publications
+        </h3>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 14,
+          }}
+        >
+          {morePublications.map((pub, index) => (
+            <a
+              key={index}
+              href={pub.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                padding: "16px 20px",
+                borderRadius: 14,
+                background: "rgba(255,255,255,.03)",
+                border: "1px solid rgba(255,255,255,.07)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: 16,
+                flexWrap: "wrap",
+              }}
+            >
+              <div style={{ fontWeight: 600, fontSize: 15 }}>{pub.title}</div>
+              <div style={{ color: "#06B6D4", fontWeight: 600, flexShrink: 0 }}>
+                View →
+              </div>
+            </a>
+          ))}
+              
+        </div>
+      </motion.div>
 
        
     </main>
