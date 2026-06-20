@@ -6,47 +6,114 @@ import { v4 as uuid } from "uuid";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
+const ALLOWED_EXTENSIONS = [
+  "pdf",
+  "ppt",
+  "pptx",
+  "doc",
+  "docx",
+];
+
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
+
     const file = formData.get("file") as File | null;
-    const title = formData.get("title") as string;
-    const subject = formData.get("subject") as string;
-    const category = formData.get("category") as string;
-    const description = formData.get("description") as string;
-    const uploadedAt = formData.get("uploadedAt") as string;
+    const title = (formData.get("title") as string)?.trim();
+    const subject = (formData.get("subject") as string)?.trim();
+    const category = (formData.get("category") as string)?.trim();
+    const description =
+      (formData.get("description") as string)?.trim() || "";
 
     if (!file || !title || !subject || !category) {
-      return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: "All required fields must be provided.",
+        },
+        {
+          status: 400,
+        }
+      );
     }
 
-    // Validate file type
-    const allowed = ["application/pdf", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
-    if (!allowed.includes(file.type) && !file.name.match(/\.(pdf|ppt|pptx|doc|docx)$/i)) {
-      return NextResponse.json({ message: "Invalid file type. Only PDF, PPT, PPTX, DOC, DOCX allowed." }, { status: 400 });
+    // ----------------------------
+    // File validation
+    // ----------------------------
+
+    const extension =
+      file.name.split(".").pop()?.toLowerCase() || "";
+
+    if (!ALLOWED_EXTENSIONS.includes(extension)) {
+      return NextResponse.json(
+        {
+          error:
+            "Only PDF, PPT, PPTX, DOC and DOCX files are allowed.",
+        },
+        {
+          status: 400,
+        }
+      );
     }
 
-    // Upload to Vercel Blob
-    const blob = await put(`nexora/${uuid()}-${file.name}`, file, {
-      access: "public",
-    });
+    // Optional: 20MB limit
+
+    const MAX_SIZE = 20 * 1024 * 1024;
+
+    if (file.size > MAX_SIZE) {
+      return NextResponse.json(
+        {
+          error: "Maximum file size is 20 MB.",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
+    // ----------------------------
+    // Upload to Blob
+    // ----------------------------
+
+    const blob = await put(
+      `nexora/${uuid()}-${file.name}`,
+      file,
+      {
+        access: "public",
+      }
+    );
+
+    // ----------------------------
+    // Save metadata
+    // ----------------------------
 
     const id = uuid();
+
     const material = {
       id,
-      title: title.trim(),
-      subject: subject.trim(),
-      category: category.trim(),
-      description: description?.trim() || "",
+      title,
+      subject,
+      category,
+      description,
       url: blob.url,
-      uploadedAt: uploadedAt || new Date().toISOString(),
+      uploadedAt: new Date().toISOString(),
     };
 
     await kv.set(`material:${id}`, material);
 
-    return NextResponse.json({ success: true, material });
-  } catch (err) {
-    console.error("Upload error:", err);
-    return NextResponse.json({ message: "Upload failed. Please try again." }, { status: 500 });
+    return NextResponse.json({
+      success: true,
+      material,
+    });
+  } catch (error) {
+    console.error("Upload API Error:", error);
+
+    return NextResponse.json(
+      {
+        error: "Failed to upload file.",
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }

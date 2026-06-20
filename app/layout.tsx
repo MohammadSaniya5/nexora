@@ -3,9 +3,9 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import AuroraBg from "@/components/Aurorabg";
 import "./globals.css";
-
+import Footer from "@/components/Footer";
 const StarField = dynamic(() => import("@/components/Starfield"), { ssr: false });
-
+import DisableRightClick from "@/components/DisableRightClick";
 export const metadata: Metadata = {
   title: "Nexora — Academic Resource Hub",
   description: "Next Generation Knowledge Portal for Students",
@@ -23,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
+      <DisableRightClick />
       <body className="noise">
         <AuroraBg />
         <StarField />
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           {children}
         </div>
+        <Footer />
       </body>
     </html>
   );

@@ -4,10 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-
+import Logo from "@/components/Logo";
 const links = [
   { href: "/", label: "Home" },
   { href: "/resources", label: "Resources" },
+   { href: "/faculty", label: "Faculty" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -138,12 +139,12 @@ export default function Navbar() {
           right: 0,
           zIndex: 500,
 
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          display: "grid",
+gridTemplateColumns: "1fr auto 1fr",
+alignItems: "center",
 
-          padding: "0 36px",
-          height: 72, // ✅ medium size navbar
+padding: "0 36px",
+height: 72, // ✅ medium size navbar
 
           background: scrolled
             ? "rgba(2,3,10,0.88)"
@@ -156,41 +157,25 @@ export default function Navbar() {
         }}
       >
         {/* LOGO */}
-        <Link
-          href="/"
-          style={{ display: "flex", alignItems: "center", gap: 12 }}
-        >
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              background: "linear-gradient(135deg,#7C3AED,#06B6D4)",
-              clipPath:
-                "polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)",
-            }}
-          />
-          <span
-            style={{
-              fontWeight: 800,
-              fontSize: 18,
-              background: "linear-gradient(135deg,#A78BFA,#06B6D4)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Nexora
-          </span>
-        </Link>
+<div style={{ justifySelf: "start" }}>
+  <Link
+    href="/"
+    style={{ display: "flex", alignItems: "center", gap: 12 }}
+  >
+    <Logo size="md" />
+  </Link>
+</div>
 
         {/* LINKS */}
         <div
-          className="hidden md:flex"
-          style={{
-            display: "flex",
-            gap: 22, // ✅ FIX: proper spacing (no clump)
-            alignItems: "center",
-          }}
-        >
+  className="hidden md:flex"
+  style={{
+    justifySelf: "center",
+    display: "flex",
+    gap: 22,
+    alignItems: "center",
+  }}
+>
           {links.map((l) => (
             <MagLink
               key={l.href}
@@ -202,7 +187,15 @@ export default function Navbar() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="hidden md:flex" style={{ alignItems: "center", gap: 14 }}>
+       <div
+  className="hidden md:flex"
+  style={{
+    justifySelf: "end",
+    display: "flex",
+    alignItems: "center",
+    gap: 14,
+  }}
+>
           <span style={{ fontSize: 11, fontFamily: "monospace", color: "#96a3be" }}>
             {time}
           </span>

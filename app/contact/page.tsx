@@ -13,13 +13,18 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.message) return;
+    if (
+  form.name.trim().length === 0 ||
+  form.message.trim().length === 0
+) {
+  return;
+}
     setStatus("sending");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, createdAt: new Date().toISOString() }),
+        body: JSON.stringify(form),
       });
       if (res.ok) {
         setStatus("sent");
