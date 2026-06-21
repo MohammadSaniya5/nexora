@@ -46,7 +46,7 @@ function isNewUpload(dateStr: string) {
 
 export default function ResourcesPage() {
   const [materials, setMaterials] = useState<Material[]>([]);
-  const [subjects, setSubjects] = useState<string[]>([]);
+  const [subjects, setSubjects] = useState<string[]>(["All"]);
   const [activeSubject, setActiveSubject] = useState("All");
   const [activeCategory, setActiveCategory] = useState("All");
   const [search, setSearch] = useState("");
@@ -59,7 +59,12 @@ export default function ResourcesPage() {
         fetch("/api/subjects"),
       ]);
       const mats = await matRes.json();
-      const subs = await subRes.json();
+      const subsJson = await subRes.json();
+      const subsArray = Array.isArray(subsJson)
+        ? subsJson
+        : Array.isArray(subsJson?.subjects)
+        ? subsJson.subjects
+        : [];
       setMaterials(
         Array.isArray(mats)
           ? mats.sort(
@@ -69,9 +74,10 @@ export default function ResourcesPage() {
           )
           : []
       );
-      setSubjects(["All", ...(Array.isArray(subs) ? subs.map((s: { name: string }) => s.name) : [])]);
+      setSubjects(["All", ...subsArray.map((s: { name: string }) => s.name)]);
     } catch {
       setMaterials([]);
+      setSubjects(["All"]);
     } finally {
       setLoading(false);
     }
@@ -100,10 +106,11 @@ export default function ResourcesPage() {
   const newCount = materials.filter((m) => isNewUpload(m.uploadedAt)).length;
 
   return (
-    <main style={{ paddingTop: 90, minHeight: "100vh" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 80px" }}>
+    <main className="resources-main" style={{ paddingTop: 90, minHeight: "100vh" }}>
+      <div className="resources-container" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 80px" }}>
 
         <motion.div
+          className="resources-hero"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -136,6 +143,7 @@ export default function ResourcesPage() {
           />
 
           <h1
+            className="resources-h1"
             style={{
               fontSize: 52,
               fontWeight: 700,
@@ -146,6 +154,7 @@ export default function ResourcesPage() {
           </h1>
 
           <p
+            className="resources-p"
             style={{
               color: "#6B7280",
               marginTop: 12,
@@ -156,48 +165,12 @@ export default function ResourcesPage() {
           </p>
         </motion.div>
 
-        {/* Search */}
-        <motion.div
-          whileHover={{
-            scale: 1.01,
-          }}
-          whileFocus={{
-            scale: 1.02,
-          }}
-          style={{
-            padding: 3,
-            borderRadius: 18,
-            background:
-              "linear-gradient(135deg,rgba(124,58,237,.4),rgba(6,182,212,.4))",
-            marginBottom: 30,
-          }}
-        >
-          <div
-            style={{
-              background: "#050816",
-              borderRadius: 14,
-              padding: 12,
-            }}
-          >
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search resources..."
-              style={{
-                width: "100%",
-                background: "transparent",
-                border: "none",
-                outline: "none",
-                color: "white",
-                fontSize: 16,
-              }}
-            />
-          </div>
-        </motion.div>
+         
 
         {/* ===================== STATS ===================== */}
 
 <motion.div
+  className="stats-grid"
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ delay: 0.15 }}
@@ -217,7 +190,7 @@ export default function ResourcesPage() {
     },
     {
       title: "Subjects",
-      value: subjects.length - 1,
+      value: Math.max(0, subjects.length - 1),
       icon: "🎓",
       color: "#06B6D4",
     },
@@ -230,6 +203,7 @@ export default function ResourcesPage() {
   ].map((card, index) => (
     <motion.div
       key={card.title}
+      className="stat-card"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -272,7 +246,7 @@ export default function ResourcesPage() {
       
 
       <motion.h2
-         
+        className="stat-value"
         style={{
           fontSize: 34,
           fontWeight: 700,
@@ -287,6 +261,7 @@ export default function ResourcesPage() {
       </motion.h2>
 
       <p
+        className="stat-label"
         style={{
           color: "#9CA3AF",
           fontSize: 15,
@@ -301,6 +276,46 @@ export default function ResourcesPage() {
     </motion.div>
   ))}
 </motion.div>
+{/* Search */}
+        <motion.div
+          className="search-wrap"
+          whileHover={{
+            scale: 1.01,
+          }}
+          whileFocus={{
+            scale: 1.02,
+          }}
+          style={{
+            padding: 3,
+            borderRadius: 18,
+            background:
+              "linear-gradient(135deg,rgba(124,58,237,.4),rgba(6,182,212,.4))",
+            marginBottom: 30,
+          }}
+        >
+          <div
+            style={{
+              background: "#050816",
+              borderRadius: 14,
+              padding: 12,
+            }}
+          >
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search resources..."
+              className="search-input"
+              style={{
+                width: "100%",
+                background: "transparent",
+                border: "none",
+                outline: "none",
+                color: "white",
+                fontSize: 16,
+              }}
+            />
+          </div>
+        </motion.div>
 
 {/* ===================== SUBJECT FILTER ===================== */}
 
@@ -313,6 +328,7 @@ export default function ResourcesPage() {
   }}
 >
   <p
+    className="filter-label"
     style={{
       fontSize: 12,
       fontWeight: 700,
@@ -326,6 +342,7 @@ export default function ResourcesPage() {
   </p>
 
   <div
+    className="filter-row"
     style={{
       display: "flex",
       gap: 10,
@@ -336,6 +353,7 @@ export default function ResourcesPage() {
       <motion.button
         key={s}
         onClick={() => setActiveSubject(s)}
+        className="filter-pill"
         whileHover={{
           y: -5,
           scale: 1.05,
@@ -384,12 +402,13 @@ export default function ResourcesPage() {
 
         {/* Category filter */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} style={{ marginBottom: 40 }}>
-          <p style={{ fontSize: 12, fontWeight: 600, color: "#4B5563", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>Category</p>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <p className="filter-label" style={{ fontSize: 12, fontWeight: 600, color: "#4B5563", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>Category</p>
+          <div className="filter-row" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {CATEGORIES.map((c) => (
               <motion.button
                 key={c}
                 onClick={() => setActiveCategory(c)}
+                className="filter-pill"
                 whileHover={{
                   y: -5,
                   scale: 1.08,
@@ -449,7 +468,7 @@ export default function ResourcesPage() {
 
         {/* Grid */}
         {loading ? (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
+          <div className="resource-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
             {[...Array(6)].map((_, i) => (
               <div key={i} className="glass" style={{ height: 180, animation: "pulse-glow 2s infinite", opacity: 0.4 }} />
             ))}
@@ -463,6 +482,7 @@ export default function ResourcesPage() {
         ) : (
           <motion.div
             layout
+            className="resource-grid"
             style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}
           >
             <AnimatePresence>
@@ -490,7 +510,7 @@ const icon =
                       scale: 1.02,
                       rotateX: 4,
                     }}
-                    className="glass"
+                    className="glass resource-card"
                     style={{ padding: "24px", display: "flex", flexDirection: "column", gap: 12, cursor: "default" }}
                   >
                     {/* Top row */}
@@ -503,6 +523,7 @@ const icon =
   }}
 >
   <div
+    className="card-icon"
     style={{
       width: 44,
       height: 44,
@@ -521,6 +542,7 @@ const icon =
 
   {fresh && (
     <motion.div
+      className="new-pip"
       animate={{
         opacity: [1, 0.3, 1],
         scale: [1, 1.08, 1],
@@ -548,11 +570,11 @@ const icon =
 
                     {/* Title */}
                     <div>
-                      <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 16, lineHeight: 1.4, marginBottom: 6 }}>
+                      <h3 className="card-title" style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 16, lineHeight: 1.4, marginBottom: 6 }}>
                         {item.title}
                       </h3>
                       {item.description && (
-                        <p style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.5 }}>{item.description}</p>
+                        <p className="card-desc" style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.5 }}>{item.description}</p>
                       )}
                     </div>
 
@@ -574,7 +596,7 @@ const icon =
                     </div>
 
                     {/* Footer */}
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto", paddingTop: 12, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                    <div className="card-footer" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto", paddingTop: 12, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                       <span style={{ fontSize: 12, color: "#4B5563" }}>{timeAgo(item.uploadedAt)}</span>
                       <a
                         href={item.url}
@@ -593,6 +615,156 @@ const icon =
           </motion.div>
         )}
       </div>
+
+      <style jsx>{`
+        /* ════════════════════════════════════════
+           TABLET / SMALL LAPTOP — below 900px
+           (everything above 900px is untouched)
+        ════════════════════════════════════════ */
+        @media (max-width: 900px) {
+          .resources-container {
+            padding: 0 18px 60px !important;
+          }
+
+          .resource-grid {
+            grid-template-columns: repeat(
+              auto-fill,
+              minmax(240px, 1fr)
+            ) !important;
+            gap: 16px !important;
+          }
+
+          .stats-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 14px !important;
+          }
+        }
+
+        /* ════════════════════════════════════════
+           MAIN MOBILE BREAKPOINT — below 768px
+        ════════════════════════════════════════ */
+        @media (max-width: 768px) {
+          .resources-main {
+            padding-top: 76px !important;
+          }
+
+          .resources-container {
+            padding: 0 14px 50px !important;
+          }
+
+          .resources-hero {
+            padding: 22px !important;
+            border-radius: 18px !important;
+          }
+
+          .resources-h1 {
+            font-size: 32px !important;
+          }
+
+          .resources-p {
+            font-size: 14px !important;
+            margin-top: 8px !important;
+          }
+
+          .search-input {
+            font-size: 14px !important;
+          }
+
+          /* Stats — keep 3-up but tighter, never overflow */
+          .stats-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 8px !important;
+            margin-bottom: 24px !important;
+          }
+          .stat-card {
+            padding: 14px 10px !important;
+            border-radius: 16px !important;
+          }
+          .stat-value {
+            font-size: 22px !important;
+            gap: 4px !important;
+          }
+          .stat-label {
+            font-size: 11px !important;
+          }
+
+          /* Filter rows — tighter pills */
+          .filter-label {
+            font-size: 11px !important;
+            margin-bottom: 8px !important;
+          }
+          .filter-row {
+            gap: 7px !important;
+          }
+          .filter-pill {
+            padding: 8px 13px !important;
+            font-size: 13px !important;
+          }
+
+          /* Resource cards — single column on phones */
+          .resource-grid {
+            grid-template-columns: 1fr !important;
+            gap: 14px !important;
+          }
+          .resource-card {
+            padding: 18px !important;
+          }
+          .card-icon {
+            width: 38px !important;
+            height: 38px !important;
+            font-size: 19px !important;
+          }
+          .card-title {
+            font-size: 15px !important;
+          }
+          .card-desc {
+            font-size: 12px !important;
+          }
+          .new-pip {
+            font-size: 10px !important;
+            padding: 3px 8px !important;
+          }
+        }
+
+        /* ════════════════════════════════════════
+           SMALL PHONES — below 480px
+        ════════════════════════════════════════ */
+        @media (max-width: 480px) {
+          .resources-h1 {
+            font-size: 26px !important;
+          }
+
+          .resources-hero {
+            padding: 18px !important;
+          }
+
+          /* Stats stay 3-up but shrink further so figures
+             never wrap or overlap on the smallest phones */
+          .stat-card {
+            padding: 12px 6px !important;
+          }
+          .stat-value {
+            font-size: 18px !important;
+          }
+          .stat-label {
+            font-size: 10px !important;
+          }
+
+          .filter-pill {
+            padding: 7px 11px !important;
+            font-size: 12px !important;
+          }
+
+          .resource-card {
+            padding: 16px !important;
+          }
+
+          .card-footer {
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }

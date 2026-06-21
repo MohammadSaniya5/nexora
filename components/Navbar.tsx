@@ -8,7 +8,7 @@ import Logo from "@/components/Logo";
 const links = [
   { href: "/", label: "Home" },
   { href: "/resources", label: "Resources" },
-   { href: "/faculty", label: "Faculty" },
+  { href: "/faculty", label: "Faculty" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -133,49 +133,48 @@ export default function Navbar() {
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 500,
+  position: "fixed",
+  top: 0,
+  left: 0,
+  right: 0,
+  zIndex: 500,
 
-          display: "grid",
-gridTemplateColumns: "1fr auto 1fr",
-alignItems: "center",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
 
-padding: "0 36px",
-height: 72, // ✅ medium size navbar
+  padding: "0 16px",
+  height: 72,
 
-          background: scrolled
-            ? "rgba(2,3,10,0.88)"
-            : "rgba(2,3,10,0.4)",
+  background: scrolled
+    ? "rgba(2,3,10,0.88)"
+    : "rgba(2,3,10,0.4)",
 
-          backdropFilter: "blur(24px)",
-          borderBottom: scrolled
-            ? "1px solid rgba(120,100,255,0.12)"
-            : "1px solid transparent",
-        }}
+  backdropFilter: "blur(24px)",
+  borderBottom: scrolled
+    ? "1px solid rgba(120,100,255,0.12)"
+    : "1px solid transparent",
+}}
       >
         {/* LOGO */}
-<div style={{ justifySelf: "start" }}>
-  <Link
-    href="/"
-    style={{ display: "flex", alignItems: "center", gap: 12 }}
-  >
-    <Logo size="md" />
-  </Link>
-</div>
+        <div style={{   }}>
+          <Link
+            href="/"
+            style={{ display: "flex", alignItems: "center", gap: 12 }}
+          >
+            <Logo size="md" />
+          </Link>
+        </div>
 
         {/* LINKS */}
         <div
-  className="hidden md:flex"
-  style={{
-    justifySelf: "center",
-    display: "flex",
-    gap: 22,
-    alignItems: "center",
-  }}
->
+          className="nav-desktop"
+          style={{ 
+            display: "flex",
+            gap: 22,
+            alignItems: "center",
+          }}
+        >
           {links.map((l) => (
             <MagLink
               key={l.href}
@@ -187,15 +186,14 @@ height: 72, // ✅ medium size navbar
         </div>
 
         {/* RIGHT SIDE */}
-       <div
-  className="hidden md:flex"
-  style={{
-    justifySelf: "end",
-    display: "flex",
-    alignItems: "center",
-    gap: 14,
-  }}
->
+        <div
+          className="nav-desktop"
+          style={{ 
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+          }}
+        >
           <span style={{ fontSize: 11, fontFamily: "monospace", color: "#96a3be" }}>
             {time}
           </span>
@@ -243,9 +241,17 @@ height: 72, // ✅ medium size navbar
 
         {/* MOBILE */}
         <button
-          className="md:hidden"
+          className="nav-mobile-toggle"
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{ background: "none", border: "none", color: "#fff" }}
+          style={{ 
+            background: "none",
+            border: "none",
+            color: "#fff",
+            cursor: "pointer",
+            padding: 8,
+            fontSize: 24,
+            display: "none",
+          }}
         >
           ☰
         </button>
@@ -263,10 +269,12 @@ height: 72, // ✅ medium size navbar
               top: 80,
               left: 12,
               right: 12,
-              background: "rgba(10,10,20,0.95)",
+              background: "rgba(10,10,20,0.97)",
+              border: "1px solid rgba(120,100,255,0.15)",
               borderRadius: 14,
               padding: 14,
               zIndex: 400,
+              backdropFilter: "blur(20px)",
             }}
           >
             {links.map((l) => (
@@ -286,6 +294,30 @@ height: 72, // ✅ medium size navbar
           </motion.div>
         )}
       </AnimatePresence>
+      <style jsx>{`
+  .nav-desktop {
+    display: flex;
+  }
+
+  .nav-mobile-toggle {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .nav-desktop {
+      display: none !important;
+    }
+
+    .nav-mobile-toggle {
+      display: block !important;
+    }
+
+    nav {
+      padding: 0 16px !important;
+      height: 64px !important;
+    }
+  }
+`}</style>
     </>
   );
 }

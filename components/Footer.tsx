@@ -8,6 +8,7 @@ export default function Footer() {
 
   return (
     <footer
+      className="footer-root"
       style={{
         marginTop: 100,
         borderTop: "1px solid rgba(255, 255, 255, 0.32)",
@@ -17,6 +18,7 @@ export default function Footer() {
       }}
     >
       <div
+        className="footer-inner"
         style={{
           maxWidth: 1250,
           margin: "0 auto",
@@ -24,6 +26,7 @@ export default function Footer() {
         }}
       >
         <div
+          className="footer-grid"
           style={{
             display: "grid",
             gridTemplateColumns:
@@ -33,8 +36,9 @@ export default function Footer() {
         >
           {/* Logo */}
 
-          <div>
+          <div className="footer-col footer-col-logo">
             <h2
+              className="footer-logo"
               style={{
                 fontSize: 34,
                 fontWeight: 700,
@@ -49,6 +53,7 @@ export default function Footer() {
             </h2>
 
             <p
+              className="footer-p"
               style={{
                 color: "#9CA3AF",
                 lineHeight: 1.8,
@@ -66,8 +71,9 @@ export default function Footer() {
 
           {/* Navigation */}
 
-          <div>
+          <div className="footer-col footer-col-links">
             <h3
+              className="footer-h3"
               style={{
                 marginBottom: 18,
                 fontSize: 18,
@@ -77,6 +83,7 @@ export default function Footer() {
             </h3>
 
             <div
+              className="footer-links"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -95,8 +102,9 @@ export default function Footer() {
 
           {/* Categories */}
 
-          <div>
+          <div className="footer-col footer-col-resources">
             <h3
+              className="footer-h3"
               style={{
                 marginBottom: 18,
                 fontSize: 18,
@@ -106,6 +114,7 @@ export default function Footer() {
             </h3>
 
             <div
+              className="footer-tags"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -127,8 +136,9 @@ export default function Footer() {
 
           {/* Contact */}
 
-          <div>
+          <div className="footer-col footer-col-faculty">
             <h3
+              className="footer-h3"
               style={{
                 marginBottom: 18,
                 fontSize: 18,
@@ -138,6 +148,7 @@ export default function Footer() {
             </h3>
 
             <p
+              className="footer-p"
               style={{
                 color: "#9CA3AF",
                 lineHeight: 1.8,
@@ -155,6 +166,7 @@ export default function Footer() {
             </p>
 
             <motion.div
+              className="footer-cta-wrap"
               whileHover={{
                 scale: 1.05,
               }}
@@ -164,6 +176,7 @@ export default function Footer() {
             >
               <Link
                 href="/faculty"
+                className="footer-cta"
                 style={{
                   padding: "10px 18px",
                   borderRadius: 999,
@@ -172,6 +185,7 @@ export default function Footer() {
                     "linear-gradient(135deg,#7C3AED,#06B6D4)",
                   color: "#fff",
                   fontWeight: 600,
+                  display: "inline-block",
                 }}
               >
                 View Profile →
@@ -183,6 +197,7 @@ export default function Footer() {
         {/* Bottom */}
 
         <div
+          className="footer-bottom"
           style={{
             marginTop: 50,
             paddingTop: 25,
@@ -202,6 +217,126 @@ export default function Footer() {
           
         </div>
       </div>
+
+      <style jsx>{`
+        /* ════════════════════════════════════════
+           TABLET / SMALL LAPTOP — below 900px
+           (everything above 900px is untouched)
+        ════════════════════════════════════════ */
+        @media (max-width: 900px) {
+          .footer-inner {
+            padding: 48px 20px 26px !important;
+          }
+
+          .footer-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            grid-template-areas:
+              "logo logo"
+              "links resources"
+              "faculty faculty" !important;
+            gap: 32px !important;
+          }
+
+          .footer-col-logo { grid-area: logo !important; }
+          .footer-col-links { grid-area: links !important; }
+          .footer-col-resources { grid-area: resources !important; }
+          .footer-col-faculty { grid-area: faculty !important; }
+        }
+
+        /* ════════════════════════════════════════
+           MAIN MOBILE BREAKPOINT — below 768px
+        ════════════════════════════════════════ */
+        @media (max-width: 768px) {
+          .footer-root {
+            margin-top: 70px !important;
+          }
+
+          .footer-inner {
+            padding: 40px 18px 24px !important;
+          }
+
+          .footer-grid {
+            grid-template-columns: 1fr 1fr !important;
+            grid-template-areas:
+              "logo logo"
+              "links resources"
+              "faculty faculty" !important;
+            gap: 28px 20px !important;
+          }
+
+          .footer-logo {
+            font-size: 28px !important;
+            margin-bottom: 10px !important;
+          }
+
+          .footer-p {
+            font-size: 13px !important;
+            line-height: 1.7 !important;
+          }
+
+          .footer-h3 {
+            font-size: 16px !important;
+            margin-bottom: 14px !important;
+          }
+
+          .footer-links,
+          .footer-tags {
+            gap: 10px !important;
+            font-size: 14px !important;
+          }
+
+          .footer-cta {
+            padding: 9px 16px !important;
+            font-size: 14px !important;
+          }
+
+          .footer-bottom {
+            margin-top: 36px !important;
+            padding-top: 18px !important;
+            font-size: 12px !important;
+            text-align: center !important;
+          }
+        }
+
+        /* ════════════════════════════════════════
+           SMALL PHONES — below 480px
+        ════════════════════════════════════════ */
+        @media (max-width: 480px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr !important;
+            grid-template-areas:
+              "logo logo"
+              "links resources"
+              "faculty faculty" !important;
+            gap: 24px 16px !important;
+          }
+
+          .footer-col-logo,
+          .footer-col-faculty {
+            text-align: center !important;
+          }
+
+          .footer-links,
+          .footer-tags {
+            align-items: flex-start !important;
+            font-size: 13px !important;
+          }
+
+          .footer-cta-wrap {
+            display: flex !important;
+            justify-content: center !important;
+          }
+
+          .footer-logo {
+            font-size: 26px !important;
+          }
+
+          .footer-p br {
+            display: none;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

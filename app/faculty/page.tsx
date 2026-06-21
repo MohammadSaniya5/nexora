@@ -57,7 +57,7 @@ const items = [
       "Academic achievements, recognitions, certifications, and professional milestones.",
     link: "https://pencilbitz.com/assets/img/event-certificate/vignan_Certificates.pdf",
   },
-   
+
   {
     id: "researchgate",
     title: "🌐 ResearchGate",
@@ -87,6 +87,7 @@ const morePublications = [
 export default function FacultyPage() {
   return (
     <main
+      className="faculty-main"
       style={{
         minHeight: "100vh",
         padding: "120px 24px 80px",
@@ -122,12 +123,12 @@ export default function FacultyPage() {
         </div>
 
         <h1
+          className="faculty-h1"
           style={{
             fontSize: "clamp(40px,7vw,70px)",
             fontWeight: 700,
             marginBottom: 18,
-            background:
-              "linear-gradient(135deg,#7C3AED,#06B6D4,#10B981)",
+            background: "linear-gradient(135deg,#7C3AED,#06B6D4,#10B981)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
@@ -136,6 +137,7 @@ export default function FacultyPage() {
         </h1>
 
         <p
+          className="faculty-p"
           style={{
             maxWidth: 700,
             margin: "0 auto",
@@ -150,216 +152,225 @@ export default function FacultyPage() {
       </motion.div>
       {/* Hero Card */}
 
-<motion.div
-  initial={{ opacity: 0, y: 30 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ delay: 0.2 }}
-  style={{
-    background: "rgba(15,20,40,.65)",
-    border: "1px solid rgba(124,58,237,.18)",
-    borderRadius: 24,
-    backdropFilter: "blur(20px)",
-    padding: 36,
-    marginBottom: 32,
-    display: "flex",
-    gap: 28,
-    alignItems: "center",
-    flexWrap: "wrap",
-  }}
->
-  <div
-    style={{
-      width: 110,
-      height: 110,
-      borderRadius: "50%",
-      background:
-        "linear-gradient(135deg,#7C3AED,#06B6D4)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      fontSize: 44,
-      fontWeight: 700,
-    }}
-  >
-    B
-  </div>
-
-  <div style={{ flex: 1 }}>
-
-    <p style={{ color: "#06B6D4" }}>
-      Assistant Professor • Department of CSE
-    </p>
-
-    {/* Biography */}
-
-<motion.div
-  className="glass"
-  style={{
-    padding: 32,
-    marginBottom: 32,
-  }}
->
-  <h3
-    style={{
-      color: "#A78BFA",
-      marginBottom: 18,
-      fontSize: 24,
-    }}
-  >
-    Biography
-  </h3>
-
-  <p
-    style={{
-      color: "#9CA3AF",
-      lineHeight: 1.9,
-    }}
-  >
-    Mr. V S S P L N Balaji Lanka serves as an
-    Assistant Professor in the Department of
-    Computer Science and Engineering with
-    expertise in Full Stack Development,
-    Programming Languages, DevOps,
-    Machine Learning, Data Analytics,
-    and Technical Training.
-  </p>
-</motion.div>
-      M.Tech • 10+ Years Experience
-    
-  </div>
-</motion.div>
- 
-{/* Areas of Expertise */}
-
-<motion.div
-  className="glass"
-  style={{
-    padding: 32,
-    marginBottom: 32,
-  }}
->
-  <h3
-    style={{
-      color: "#10B981",
-      marginBottom: 24,
-      fontSize: 24,
-    }}
-  >
-    Areas of Expertise
-  </h3>
-
-  <div
-  style={{
-    display: "flex",
-    flexWrap: "wrap",
-    gap: 12,
-    marginTop: 24,
-  }}
->
-  {subjects.map((subject, index) => (
-    <motion.div
-      key={index}
-      whileHover={{
-        scale: 1.08,
-        y: -4,
-        boxShadow: `0 0 18px ${subject.color}55`,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 300,
-        damping: 18,
-      }}
-      style={{
-        padding: "10px 18px",
-        borderRadius: 999,
-        background: `${subject.color}18`,
-        border: `1px solid ${subject.color}55`,
-        color: subject.color,
-        fontSize: 14,
-        fontWeight: 600,
-        cursor: "pointer",
-        userSelect: "none",
-      }}
-    >
-      {subject.name}
-    </motion.div>
-  ))}
-</div>
-</motion.div>
-{/* Research Metrics */}
-
-<motion.div
-  className="glass"
-  style={{
-    padding: 32,
-    marginBottom: 40,
-  }}
->
-  <h3
-    style={{
-      color: "#F59E0B",
-      marginBottom: 24,
-      fontSize: 24,
-    }}
-  >
-    Research Metrics
-  </h3>
-
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns:
-        "repeat(auto-fit,minmax(180px,1fr))",
-      gap: 20,
-    }}
-  >
-    {[
-      ["10+", "Publications"],
-      ["60+", "Projects Guided"],
-      ["5", "Awards"],
-      ["2", "Patents"],
-    ].map(([value, label]) => (
-      <div
-        key={label}
+      <motion.div
+        className="hero-card"
         style={{
-          textAlign: "center",
-          padding: 20,
-          borderRadius: 14,
-          background: "rgba(255,255,255,.03)",
-          border: "1px solid rgba(255,255,255,.06)",
+          background: "rgba(15,20,40,.65)",
+          border: "1px solid rgba(124,58,237,.18)",
+          borderRadius: 24,
+          backdropFilter: "blur(20px)",
+          padding: 36,
+          marginBottom: 32,
+          display: "flex",
+          gap: 28,
+          alignItems: "center",
+          flexWrap: "wrap",
         }}
       >
         <div
+          className="hero-avatar"
           style={{
-            fontSize: 36,
+            width: 110,
+            height: 110,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg,#7C3AED,#06B6D4)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: 44,
             fontWeight: 700,
-            color: "#A78BFA",
+            flexShrink: 0,
           }}
         >
-          {value}
+          B
         </div>
 
-        <div
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p className="faculty-p" style={{ color: "#06B6D4" }}>
+            Assistant Professor • Department of CSE
+          </p>
+          <p className="faculty-p" style={{ color: "#9CA3AF", marginTop: 4 }}>
+            M.Tech • 10+ Years Experience
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Biography */}
+
+      <motion.div
+        className="glass"
+        style={{
+          padding: 32,
+          marginBottom: 32,
+        }}
+      >
+        <h3
+          className="faculty-h3"
+          style={{
+            color: "#A78BFA",
+            marginBottom: 18,
+            fontSize: 24,
+          }}
+        >
+          Biography
+        </h3>
+
+        <p
+          className="faculty-p"
           style={{
             color: "#9CA3AF",
-            marginTop: 6,
+            lineHeight: 1.9,
           }}
         >
-          {label}
-        </div>
-      </div>
-    ))}
-  </div>
-</motion.div>
+          Mr. V S S P L N Balaji Lanka serves as an Assistant Professor in the
+          Department of Computer Science and Engineering with expertise in
+          Full Stack Development, Programming Languages, DevOps, Machine
+          Learning, Data Analytics, and Technical Training.
+        </p>
+      </motion.div>
 
+      {/* Areas of Expertise */}
+
+      <motion.div
+        className="glass"
+        style={{
+          padding: 32,
+          marginBottom: 32,
+        }}
+      >
+        <h3
+          className="faculty-h3"
+          style={{
+            color: "#10B981",
+            marginBottom: 24,
+            fontSize: 24,
+          }}
+        >
+          Areas of Expertise
+        </h3>
+
+        <div
+          className="subjects-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+            gap: 12,
+            marginTop: 24,
+          }}
+        >
+          {subjects.map((subject, index) => (
+            <motion.div
+              key={index}
+              className="subject-pill"
+              whileHover={{
+                scale: 1.05,
+                y: -3,
+                boxShadow: `0 0 18px ${subject.color}55`,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 18,
+              }}
+              style={{
+                padding: "10px 16px",
+                borderRadius: 999,
+                background: `${subject.color}18`,
+                border: `1px solid ${subject.color}55`,
+                color: subject.color,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                lineHeight: 1.3,
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: "pointer",
+                userSelect: "none",
+              }}
+            >
+              {subject.name}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+      {/* Research Metrics */}
+
+      <motion.div
+        className="glass"
+        style={{
+          padding: 32,
+          marginBottom: 40,
+        }}
+      >
+        <h3
+          className="faculty-h3"
+          style={{
+            color: "#F59E0B",
+            marginBottom: 24,
+            fontSize: 24,
+          }}
+        >
+          Research Metrics
+        </h3>
+
+        <div
+          className="stats-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
+            gap: 20,
+          }}
+        >
+          {[
+            ["10+", "Publications"],
+            ["60+", "Projects Guided"],
+            ["5", "Awards"],
+            ["2", "Patents"],
+          ].map(([value, label]) => (
+            <div
+              key={label}
+              className="stat-box"
+              style={{
+                textAlign: "center",
+                padding: 20,
+                borderRadius: 14,
+                background: "rgba(255,255,255,.03)",
+                border: "1px solid rgba(255,255,255,.06)",
+              }}
+            >
+              <div
+                className="stat-value"
+                style={{
+                  fontSize: 36,
+                  fontWeight: 700,
+                  color: "#A78BFA",
+                }}
+              >
+                {value}
+              </div>
+
+              <div
+                className="faculty-p"
+                style={{
+                  color: "#9CA3AF",
+                  marginTop: 6,
+                }}
+              >
+                {label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Cards */}
 
       <div
+        className="cards-grid"
         style={{
           display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit,minmax(320px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
           gap: 24,
         }}
       >
@@ -370,6 +381,7 @@ export default function FacultyPage() {
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
+            className="research-card"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -385,8 +397,7 @@ export default function FacultyPage() {
 
               background: "rgba(15,20,40,.65)",
 
-              border:
-                "1px solid rgba(124,58,237,.18)",
+              border: "1px solid rgba(124,58,237,.18)",
 
               backdropFilter: "blur(20px)",
 
@@ -422,6 +433,7 @@ export default function FacultyPage() {
             />
 
             <h2
+              className="card-title"
               style={{
                 fontSize: 24,
                 marginBottom: 14,
@@ -433,6 +445,7 @@ export default function FacultyPage() {
             </h2>
 
             <p
+              className="faculty-p"
               style={{
                 color: "#9CA3AF",
                 lineHeight: 1.7,
@@ -472,6 +485,7 @@ export default function FacultyPage() {
         }}
       >
         <h3
+          className="faculty-h3"
           style={{
             color: "#EC4899",
             marginBottom: 24,
@@ -494,6 +508,7 @@ export default function FacultyPage() {
               href={pub.link}
               target="_blank"
               rel="noopener noreferrer"
+              className="publication-link"
               style={{
                 textDecoration: "none",
                 color: "white",
@@ -508,17 +523,179 @@ export default function FacultyPage() {
                 flexWrap: "wrap",
               }}
             >
-              <div style={{ fontWeight: 600, fontSize: 15 }}>{pub.title}</div>
+              <div
+                className="publication-title"
+                style={{ fontWeight: 600, fontSize: 15, minWidth: 0 }}
+              >
+                {pub.title}
+              </div>
               <div style={{ color: "#06B6D4", fontWeight: 600, flexShrink: 0 }}>
                 View →
               </div>
             </a>
           ))}
-              
         </div>
       </motion.div>
 
-       
+      <style jsx>{`
+        /* ════════════════════════════════════════
+           TABLET / SMALL LAPTOP — below 900px
+           (everything above 900px is untouched)
+        ════════════════════════════════════════ */
+        @media (max-width: 900px) {
+          .faculty-main {
+            padding: 100px 20px 60px !important;
+          }
+
+          .cards-grid {
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(260px, 1fr)
+            ) !important;
+            gap: 18px !important;
+          }
+
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 14px !important;
+          }
+        }
+
+        /* ════════════════════════════════════════
+           MAIN MOBILE BREAKPOINT — below 768px
+        ════════════════════════════════════════ */
+        @media (max-width: 768px) {
+          .faculty-main {
+            padding: 90px 16px 50px !important;
+          }
+
+          .faculty-h1 {
+            font-size: 34px !important;
+            line-height: 1.15 !important;
+          }
+
+          .faculty-p {
+            font-size: 14px !important;
+          }
+
+          .faculty-h3 {
+            font-size: 20px !important;
+            margin-bottom: 18px !important;
+          }
+
+          .card-title {
+            font-size: 20px !important;
+          }
+
+          /* Hero Card → stack + center on mobile */
+          .hero-card {
+            flex-direction: column !important;
+            text-align: center !important;
+            padding: 24px !important;
+            gap: 16px !important;
+          }
+
+          .hero-avatar {
+            width: 84px !important;
+            height: 84px !important;
+            font-size: 34px !important;
+          }
+
+          /* Glass sections — tighter padding */
+          .glass {
+            padding: 20px !important;
+          }
+
+          /* Subjects — clean 2-column grid, no more ragged wrap */
+          .subjects-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
+            margin-top: 16px !important;
+          }
+          .subject-pill {
+            padding: 10px 12px !important;
+            font-size: 13px !important;
+          }
+
+          /* Stats — 2 columns on mobile, never overflow */
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+          .stat-box {
+            padding: 16px !important;
+          }
+          .stat-value {
+            font-size: 28px !important;
+          }
+
+          /* Research cards — single column */
+          .cards-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+          .research-card {
+            padding: 22px !important;
+          }
+
+          /* Publication links — stack title and "View" link */
+          .publication-link {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 10px !important;
+            padding: 14px 16px !important;
+          }
+          .publication-title {
+            font-size: 14px !important;
+          }
+        }
+
+        /* ════════════════════════════════════════
+           SMALL PHONES — below 480px
+        ════════════════════════════════════════ */
+        @media (max-width: 480px) {
+          .faculty-h1 {
+            font-size: 26px !important;
+          }
+
+          .faculty-h3 {
+            font-size: 18px !important;
+          }
+
+          .card-title {
+            font-size: 18px !important;
+          }
+
+          .glass {
+            padding: 16px !important;
+          }
+
+          /* On very small phones, stats become single column
+             so numbers never feel cramped */
+          .stats-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 10px !important;
+          }
+          .stat-value {
+            font-size: 24px !important;
+          }
+
+          .cards-grid {
+            gap: 14px !important;
+          }
+
+          .subject-pill {
+            padding: 7px 12px !important;
+            font-size: 12px !important;
+          }
+
+          .hero-avatar {
+            width: 72px !important;
+            height: 72px !important;
+            font-size: 28px !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }
