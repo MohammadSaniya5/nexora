@@ -17,7 +17,7 @@ const features = [
 ];
 
 const steps = [
-  { num: "01", title: "Sir Uploads", desc: "Mr. Balaji Lanka logs into the admin panel and uploads with subject & category tags.", icon: "⬆" },
+  { num: "01", title: "Uploads", desc: "Mr. Balaji Lanka logs into the admin panel and uploads with subject & category tags.", icon: "⬆" },
   { num: "02", title: "Instant Live", desc: "Files appear immediately on the portal with a glowing NEW badge.", icon: "⚡" },
   { num: "03", title: "You Access", desc: "Filter by subject, find in seconds, download in one click. Zero login needed.", icon: "🎯" },
 ];
@@ -25,16 +25,17 @@ const steps = [
 const WORDS = ["Next Generation", "Aurora", "Knowledge"];
 
 const facultyStats = [
-  { label: "Publications", value: 10, suffix: "+", icon: "📄" },
-  { label: "Projects Guided", value: 60, suffix: "+", icon: "🎓" },
-  { label: "Awards", value: 5, icon: "🏆" },
-  { label: "Years Experience", value: 10, icon: "⏳" },
+  { label: "Publications", value: 25, suffix: "+", icon: "📄" },
+  { label: "Projects Guided", value: 30, suffix: "+", icon: "🎓" },
+  { label: "Awards", value: 10, suffix: "+", icon: "🏆" },
+  { label: "Years Experience", value: 5, suffix: "+", icon: "⏳" },
 ];
 
 const facultyHighlights = [
-  { label: "Recent publication", value: "IEEE, 2025", icon: "📄" },
-  { label: "Latest award", value: "Best Mentor, 2024", icon: "🏆" },
-  { label: "Patents filed", value: "2", icon: "💡" },
+  { label: "Recent publication", value: "Scopus, 2026", icon: "📄" },
+  { label: "Latest award", value: "Best Publisher, 2026", icon: "🏆" },
+  { label: "Patents filed", value: "3", icon: "💡" },
+  { label: "Patents granted", value: "1", icon: "💡" },
   { label: "Department", value: "CSE", icon: "🏛" },
 ];
 
@@ -360,7 +361,7 @@ function FacultyPanel({ router }: { router: ReturnType<typeof useRouter> }) {
             Mr. V S S P L N Balaji Lanka
           </div>
           <div style={{ color: "#06B6D4", fontSize: 12.5, fontWeight: 500, marginTop: 2, fontFamily: "monospace", letterSpacing: "0.03em" }}>
-            Associate Professor · CSE
+            Assistant Professor · CSE
           </div>
         </div>
       </div>

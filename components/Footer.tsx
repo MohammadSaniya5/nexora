@@ -14,7 +14,7 @@ export default function Footer() {
         borderTop: "1px solid rgba(255, 255, 255, 0.32)",
         background: "rgba(255,255,255,0.02)",
         backdropFilter: "blur(20px)",
-        
+
       }}
     >
       <div
@@ -214,7 +214,7 @@ export default function Footer() {
             © {year} Nexora. All Rights Reserved.
           </span>
 
-          
+
         </div>
       </div>
 

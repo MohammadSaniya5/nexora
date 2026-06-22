@@ -133,31 +133,31 @@ export default function Navbar() {
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         style={{
-  position: "fixed",
-  top: 0,
-  left: 0,
-  right: 0,
-  zIndex: 500,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 500,
 
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
 
-  padding: "0 16px",
-  height: 72,
+          padding: "0 16px",
+          height: 72,
 
-  background: scrolled
-    ? "rgba(2,3,10,0.88)"
-    : "rgba(2,3,10,0.4)",
+          background: scrolled
+            ? "rgba(2,3,10,0.88)"
+            : "rgba(2,3,10,0.4)",
 
-  backdropFilter: "blur(24px)",
-  borderBottom: scrolled
-    ? "1px solid rgba(120,100,255,0.12)"
-    : "1px solid transparent",
-}}
+          backdropFilter: "blur(24px)",
+          borderBottom: scrolled
+            ? "1px solid rgba(120,100,255,0.12)"
+            : "1px solid transparent",
+        }}
       >
         {/* LOGO */}
-        <div style={{   }}>
+        <div style={{}}>
           <Link
             href="/"
             style={{ display: "flex", alignItems: "center", gap: 12 }}
@@ -169,7 +169,7 @@ export default function Navbar() {
         {/* LINKS */}
         <div
           className="nav-desktop"
-          style={{ 
+          style={{
             display: "flex",
             gap: 22,
             alignItems: "center",
@@ -188,7 +188,7 @@ export default function Navbar() {
         {/* RIGHT SIDE */}
         <div
           className="nav-desktop"
-          style={{ 
+          style={{
             display: "flex",
             alignItems: "center",
             gap: 14,
@@ -243,7 +243,7 @@ export default function Navbar() {
         <button
           className="nav-mobile-toggle"
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{ 
+          style={{
             background: "none",
             border: "none",
             color: "#fff",

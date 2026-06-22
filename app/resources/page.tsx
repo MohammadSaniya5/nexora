@@ -63,8 +63,8 @@ export default function ResourcesPage() {
       const subsArray = Array.isArray(subsJson)
         ? subsJson
         : Array.isArray(subsJson?.subjects)
-        ? subsJson.subjects
-        : [];
+          ? subsJson.subjects
+          : [];
       setMaterials(
         Array.isArray(mats)
           ? mats.sort(
@@ -92,8 +92,8 @@ export default function ResourcesPage() {
   const filtered = materials.filter((m) => {
     const matchSubject = activeSubject === "All" || m.subject === activeSubject;
     const matchCat =
-  activeCategory === "All" ||
-  m.category.toLowerCase() === activeCategory.toLowerCase();
+      activeCategory === "All" ||
+      m.category.toLowerCase() === activeCategory.toLowerCase();
     const term = search.toLowerCase();
 
     const matchSearch =
@@ -165,118 +165,118 @@ export default function ResourcesPage() {
           </p>
         </motion.div>
 
-         
+
 
         {/* ===================== STATS ===================== */}
 
-<motion.div
-  className="stats-grid"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ delay: 0.15 }}
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
-    gap: 20,
-    marginBottom: 35,
-  }}
->
-  {[
-    {
-      title: "Resources",
-      value: materials.length,
-      icon: "📚",
-      color: "#7C3AED",
-    },
-    {
-      title: "Subjects",
-      value: Math.max(0, subjects.length - 1),
-      icon: "🎓",
-      color: "#06B6D4",
-    },
-    {
-      title: "New Uploads",
-      value: newCount,
-      icon: "✨",
-      color: "#10B981",
-    },
-  ].map((card, index) => (
-    <motion.div
-      key={card.title}
-      className="stat-card"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: 0.1 + index * 0.1,
-      }}
-      whileHover={{
-        y: -8,
-        scale: 1.03,
-      }}
-      style={{
-        background: "rgba(255,255,255,0.03)",
-        border: `1px solid ${card.color}55`,
-        borderRadius: 22,
-        padding: 24,
-        backdropFilter: "blur(18px)",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Animated Shine */}
+        <motion.div
+          className="stats-grid"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
+            gap: 20,
+            marginBottom: 35,
+          }}
+        >
+          {[
+            {
+              title: "Resources",
+              value: materials.length,
+              icon: "📚",
+              color: "#7C3AED",
+            },
+            {
+              title: "Subjects",
+              value: Math.max(0, subjects.length - 1),
+              icon: "🎓",
+              color: "#06B6D4",
+            },
+            {
+              title: "New Uploads",
+              value: newCount,
+              icon: "✨",
+              color: "#10B981",
+            },
+          ].map((card, index) => (
+            <motion.div
+              key={card.title}
+              className="stat-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.1 + index * 0.1,
+              }}
+              whileHover={{
+                y: -8,
+                scale: 1.03,
+              }}
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: `1px solid ${card.color}55`,
+                borderRadius: 22,
+                padding: 24,
+                backdropFilter: "blur(18px)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              {/* Animated Shine */}
 
-      <motion.div
-        animate={{
-          x: ["-120%", "150%"],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 3,
-          ease: "linear",
-          delay: index,
-        }}
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent)",
-        }}
-      />
+              <motion.div
+                animate={{
+                  x: ["-120%", "150%"],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "linear",
+                  delay: index,
+                }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent)",
+                }}
+              />
 
-      
 
-      <motion.h2
-        className="stat-value"
-        style={{
-          fontSize: 34,
-          fontWeight: 700,
-          marginBottom: 4,
-          justifyContent: "center",
-          display: "flex",
-          alignItems: "center",
-          gap: 8, 
-        }}
-      >
-        {card.value}
-      </motion.h2>
 
-      <p
-        className="stat-label"
-        style={{
-          color: "#9CA3AF",
-          fontSize: 15,
-          justifyContent: "center", 
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-        }}
-      >
-        {card.title}
-      </p>
-    </motion.div>
-  ))}
-</motion.div>
-{/* Search */}
+              <motion.h2
+                className="stat-value"
+                style={{
+                  fontSize: 34,
+                  fontWeight: 700,
+                  marginBottom: 4,
+                  justifyContent: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                {card.value}
+              </motion.h2>
+
+              <p
+                className="stat-label"
+                style={{
+                  color: "#9CA3AF",
+                  fontSize: 15,
+                  justifyContent: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}
+              >
+                {card.title}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+        {/* Search */}
         <motion.div
           className="search-wrap"
           whileHover={{
@@ -317,88 +317,88 @@ export default function ResourcesPage() {
           </div>
         </motion.div>
 
-{/* ===================== SUBJECT FILTER ===================== */}
+        {/* ===================== SUBJECT FILTER ===================== */}
 
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ delay: 0.2 }}
-  style={{
-    marginBottom: 32,
-  }}
->
-  <p
-    className="filter-label"
-    style={{
-      fontSize: 12,
-      fontWeight: 700,
-      color: "#6B7280",
-      letterSpacing: "0.08em",
-      textTransform: "uppercase",
-      marginBottom: 12,
-    }}
-  >
-    Subjects
-  </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          style={{
+            marginBottom: 32,
+          }}
+        >
+          <p
+            className="filter-label"
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: "#6B7280",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              marginBottom: 12,
+            }}
+          >
+            Subjects
+          </p>
 
-  <div
-    className="filter-row"
-    style={{
-      display: "flex",
-      gap: 10,
-      flexWrap: "wrap",
-    }}
-  >
-    {subjects.map((s) => (
-      <motion.button
-        key={s}
-        onClick={() => setActiveSubject(s)}
-        className="filter-pill"
-        whileHover={{
-          y: -5,
-          scale: 1.05,
-        }}
-        whileTap={{
-          scale: 0.95,
-        }}
-        animate={
-          activeSubject === s
-            ? {
-                boxShadow: [
-                  "0 0 8px rgba(124,58,237,.3)",
-                  "0 0 22px rgba(124,58,237,.6)",
-                  "0 0 8px rgba(124,58,237,.3)",
-                ],
-              }
-            : {}
-        }
-        transition={{
-          duration: 0.4,
-        }}
-        style={{
-          padding: "10px 18px",
-          borderRadius: 999,
-          cursor: "pointer",
-          border:
-            activeSubject === s
-              ? "1px solid #7C3AED"
-              : "1px solid rgba(255,255,255,.08)",
+          <div
+            className="filter-row"
+            style={{
+              display: "flex",
+              gap: 10,
+              flexWrap: "wrap",
+            }}
+          >
+            {subjects.map((s) => (
+              <motion.button
+                key={s}
+                onClick={() => setActiveSubject(s)}
+                className="filter-pill"
+                whileHover={{
+                  y: -5,
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.95,
+                }}
+                animate={
+                  activeSubject === s
+                    ? {
+                      boxShadow: [
+                        "0 0 8px rgba(124,58,237,.3)",
+                        "0 0 22px rgba(124,58,237,.6)",
+                        "0 0 8px rgba(124,58,237,.3)",
+                      ],
+                    }
+                    : {}
+                }
+                transition={{
+                  duration: 0.4,
+                }}
+                style={{
+                  padding: "10px 18px",
+                  borderRadius: 999,
+                  cursor: "pointer",
+                  border:
+                    activeSubject === s
+                      ? "1px solid #7C3AED"
+                      : "1px solid rgba(255,255,255,.08)",
 
-          background:
-            activeSubject === s
-              ? "linear-gradient(135deg,#7C3AED,#06B6D4)"
-              : "rgba(255,255,255,.03)",
+                  background:
+                    activeSubject === s
+                      ? "linear-gradient(135deg,#7C3AED,#06B6D4)"
+                      : "rgba(255,255,255,.03)",
 
-          color: activeSubject === s ? "#fff" : "#9CA3AF",
+                  color: activeSubject === s ? "#fff" : "#9CA3AF",
 
-          fontWeight: 600,
-        }}
-      >
-        {s}
-      </motion.button>
-    ))}
-  </div>
-</motion.div>
+                  fontWeight: 600,
+                }}
+              >
+                {s}
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Category filter */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} style={{ marginBottom: 40 }}>
@@ -490,13 +490,13 @@ export default function ResourcesPage() {
                 const fresh = isNewUpload(item.uploadedAt);
                 const categoryKey = item.category.trim();
 
-const color =
-  categoryColor[categoryKey] ??
-  "#7C3AED";
+                const color =
+                  categoryColor[categoryKey] ??
+                  "#7C3AED";
 
-const icon =
-  categoryIcon[categoryKey] ??
-  "📄";
+                const icon =
+                  categoryIcon[categoryKey] ??
+                  "📄";
                 return (
                   <motion.div
                     key={item.id}
@@ -515,58 +515,58 @@ const icon =
                   >
                     {/* Top row */}
                     <div
-  style={{
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    gap: 8,
-  }}
->
-  <div
-    className="card-icon"
-    style={{
-      width: 44,
-      height: 44,
-      borderRadius: 10,
-      flexShrink: 0,
-      background: color + "22",
-      border: `1px solid ${color}44`,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: 22,
-    }}
-  >
-    {icon}
-  </div>
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-between",
+                        gap: 8,
+                      }}
+                    >
+                      <div
+                        className="card-icon"
+                        style={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: 10,
+                          flexShrink: 0,
+                          background: color + "22",
+                          border: `1px solid ${color}44`,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: 22,
+                        }}
+                      >
+                        {icon}
+                      </div>
 
-  {fresh && (
-    <motion.div
-      className="new-pip"
-      animate={{
-        opacity: [1, 0.3, 1],
-        scale: [1, 1.08, 1],
-      }}
-      transition={{
-        duration: 1,
-        repeat: Infinity,
-      }}
-      style={{
-        padding: "4px 10px",
-        borderRadius: 999,
-        background: "#EF4444",
-        color: "#fff",
-        fontSize: 11,
-        fontWeight: 700,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase",
-        boxShadow: "0 0 15px rgba(239,68,68,.6)",
-      }}
-    >
-      ✨ NEW
-    </motion.div>
-  )}
-</div>
+                      {fresh && (
+                        <motion.div
+                          className="new-pip"
+                          animate={{
+                            opacity: [1, 0.3, 1],
+                            scale: [1, 1.08, 1],
+                          }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                          }}
+                          style={{
+                            padding: "4px 10px",
+                            borderRadius: 999,
+                            background: "#EF4444",
+                            color: "#fff",
+                            fontSize: 11,
+                            fontWeight: 700,
+                            letterSpacing: "0.08em",
+                            textTransform: "uppercase",
+                            boxShadow: "0 0 15px rgba(239,68,68,.6)",
+                          }}
+                        >
+                          ✨ NEW
+                        </motion.div>
+                      )}
+                    </div>
 
                     {/* Title */}
                     <div>

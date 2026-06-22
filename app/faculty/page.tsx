@@ -190,7 +190,7 @@ export default function FacultyPage() {
             Assistant Professor • Department of CSE
           </p>
           <p className="faculty-p" style={{ color: "#9CA3AF", marginTop: 4 }}>
-            M.Tech • 10+ Years Experience
+            M.Tech • 5+ Years Experience
           </p>
         </div>
       </motion.div>
@@ -323,10 +323,11 @@ export default function FacultyPage() {
           }}
         >
           {[
-            ["10+", "Publications"],
-            ["60+", "Projects Guided"],
-            ["5", "Awards"],
-            ["2", "Patents"],
+            ["25+", "Publications"],
+            ["30+", "Projects Guided"],
+            ["10+", "Awards"],
+            ["3", "Patents filled"],
+            ["1", "Patents Granted"],
           ].map(([value, label]) => (
             <div
               key={label}
